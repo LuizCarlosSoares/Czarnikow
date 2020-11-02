@@ -1,0 +1,114 @@
+
+    <div class="container">  
+      <h3>Trade Control</h3>  
+      <div class="row" >
+        <div class="col-auto">
+        <label for="counterpartyList">Counterparty</label>
+        <select id="counterpartyList" class="form-control" (change)="filter($event)">
+          <option *ngFor="let counterparty of counterparties; let i = index" [value]="counterparties[i].id">
+            {{counterparties[i].name}}
+          </option>
+        </select> 
+      </div>
+      <div class="col-auto">
+        <button class="btn btn-primary" (click)="AddNew()">Add Trade</button>
+      </div>
+      </div>
+
+      <form [formGroup]="TradeForm" (ngSubmit)="this[EventValue]()"  class="form" *ngIf="showForm">           
+          
+        <div class="row">
+         <div class="form-group">       
+            <input type="hidden" formControlName="id">      
+            <div *ngIf="submitted && TradeForm.controls.counterpartyId.errors" class="text-danger">  
+              <div *ngIf="TradeForm.controls.counterpartyId.errors.required">Counterparty is required</div>  
+            </div>    
+         </div>
+        </div>
+
+        <div class="row">
+          <div class="form-group">
+            <label for="product">Product</label>
+            <input type="text" formControlName="product" class="form-control">             
+            <div *ngIf="submitted && TradeForm.controls.product.errors" class="text-danger">  
+              <div *ngIf="TradeForm.controls.product.errors.required">Product is required</div>  
+            </div>   
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="form-group">
+            <label for="quantity">Quantity</label>
+            <input type="text" formControlName="quantity" class="form-control">  
+            <div *ngIf="submitted && TradeForm.controls.quantity.errors" class="text-danger">  
+              <div *ngIf="TradeForm.controls.quantity.errors.required">Quantity is required</div>  
+            </div> 
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="form-group">
+            <label for="price">Price</label>
+            <input type="text" formControlName="price" class="form-control">  
+            <div *ngIf="submitted && TradeForm.controls.price.errors" class="text-danger">  
+              <div *ngIf="TradeForm.controls.price.errors.required">Price is required</div>  
+            </div> 
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col">
+            <div class="form-check form-check-inline">
+              <input type="radio" value="1" id="buy"  name="direction"  formControlName="direction" class="form-check-input">
+              <label class="form-check-label" for="buy">Buy</label>
+            </div>
+          </div>
+          <div class="col">
+            <div class="form-check form-check-inline">
+              <input type="radio" value="2" id="sell"  name="direction" formControlName="direction" class="form-check-input">
+              <label class="form-check-label" for="sell">Sell</label>
+            </div>  
+          </div> 
+          <div *ngIf="submitted && TradeForm.controls.direction.errors" class="text-danger">  
+            <div *ngIf="TradeForm.controls.direction.errors.required">Direction is required</div>  
+          </div>      
+        </div> 
+      
+        <div class="row">   
+          <div class="col-auto">
+              <button type="submit" class="btn btn-primary">{{EventValue}}</button>  
+          </div>   
+          <div class="col-auto">
+            <button (click)="resetFrom()" class="btn btn-secondary">Cancel</button>  
+         </div>  
+        </div>     
+    </form> 
+
+      <table class="table">  
+        <thead>
+          <tr>  
+            <th scope="col">Counterparty</th>  
+            <th scope="col">Direction</th>                
+            <th scope="col">Product</th>  
+            <th scope="col">Quantity</th>  
+            <th scope="col">Price</th>  
+            <th scope="col">Date</th> 
+            <th scope="col">Edit</th>  
+            <th scope="col">Delete</th>  
+          </tr>  
+        </thead>
+        <tbody>
+          <tr *ngFor="let d of data">  
+            <td>{{d.counterparty.name}}</td>  
+            <td>{{d.direction}}</td>               
+            <td>{{d.product}}</td>  
+            <td>{{d.quantity}}</td>  
+            <td>{{d.price}}</td>  
+            <td>{{d.date}}</td> 
+            <td><a (click)="EditData(d)" class="btn btn-warning">Edit</a></td>  
+            <td><a (click)="deleteData(d.id)" class="btn btn-danger">Delete</a></td>    
+          </tr>  
+        </tbody>
+      </table>         
+      </div>  
+  
