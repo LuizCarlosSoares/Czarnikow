@@ -11,7 +11,8 @@
 
 ## Requirements
 [.Net Core SDK 3.1.302](https://dotnet.microsoft.com/download/dotnet-core/3.1)
-[Angular 10] (https://www.npmjs.com/package/@angular/cli)
+
+[Angular 10](https://www.npmjs.com/package/@angular/cli)
 
 Test dotnet version :
 
